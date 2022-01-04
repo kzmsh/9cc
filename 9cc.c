@@ -119,6 +119,23 @@ Token *tokenize(char *p) {
     return head.next;
 }
 
+typedef enum {
+    ND_ADD, // +
+    ND_SUB, // -
+    ND_MUL, // *
+    ND_DIV, // /
+    ND_NUM, // 整数
+} NodeKind;
+
+typedef struct Node Node;
+
+struct Node {
+    NodeKind kind; // ノードの種類
+    Node *lhs;     // 左辺
+    Node *rhs;     // 右辺
+    int val;       // kindがND_NUMの場合の値
+};
+
 int main(int argc, char **argv) {
     if (argc != 2) {
         error("引数の個数が正しくありません");
