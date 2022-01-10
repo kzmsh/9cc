@@ -3,14 +3,6 @@
 char *user_input;
 Token *token;
 
-void error(char *fmt, ...) {
-    va_list ap;
-    va_start(ap, fmt);
-    vfprintf(stderr, fmt, ap);
-    fprintf(stderr, "\n");
-    exit(1);
-}
-
 void error_at(char *loc, char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
@@ -34,6 +26,17 @@ bool consume(char *op) {
     }
     token = token->next;
     return true;
+}
+
+// 次の入力トークンが識別子である場合、トークンを1つ読み進め、次のトークンを返す。
+// それ以外の場合、NULLを返す
+Token *consume_ident() {
+    if (token->kind != TK_IDENT) {
+        return NULL;
+    }
+    Token *t = token;
+    token = token->next;
+    return t;
 }
 
 // 次の入力トークンが期待通りの場合、トークンを1つ読み進める。
@@ -97,8 +100,13 @@ Token *tokenize(char *p) {
             continue;
         }
 
-        if (strchr("+-*/()<>;", *p)) {
+        if (strchr("+-*/()<>;=", *p)) {
             cur = new_token(TK_RESERVED, cur, p++, 1);
+            continue;
+        }
+
+        if ('a' <= *p && *p <= 'z') {
+            cur = new_token(TK_IDENT, cur, p++, 1);
             continue;
         }
 

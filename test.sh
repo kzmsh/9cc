@@ -55,4 +55,10 @@ assert 0 '1 >= 2;'
 assert 3 '1; 2; 3;'
 assert 10 '1 + 2; 2 + 3 - 4; 4 + 5 - 6 + 7;'
 
+assert 3 'a = 3;'
+assert 4 'a = 3; b = 4;'
+assert 5 'a = b = c = 5;'
+assert 6 'a = 1 + 2 + 3;'
+assert 3 'a = 1 + 2; a;'
+
 echo OK
