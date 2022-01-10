@@ -23,7 +23,6 @@ struct Token {
 };
 
 void error(char *fmt, ...);
-void error_at(char *loc, char *fmt, ...);
 
 bool consume(char *op);
 Token *consume_ident();
@@ -31,7 +30,6 @@ void expect(char *op);
 int expect_number();
 bool at_eof();
 
-Token *new_token(TokenKind kind, Token *cur, char *str, int len);
 Token *tokenize(char *p);
 
 extern Token *token; // 解析済みのトークン列
