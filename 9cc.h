@@ -51,11 +51,12 @@ typedef struct Node Node;
 
 struct Node {
     NodeKind kind; // ノードの種類
+    Node *next;    // 次のノード
     Node *lhs;     // 左辺 left-hand side
     Node *rhs;     // 右辺 right-hand side
     int val;       // kindがND_NUMの場合の値
 };
 
-Node *expr();
+Node *program();
 
 void codegen(Node *node);
