@@ -1,5 +1,7 @@
 #include "9cc.h"
 
+// 与えられたノードがローカル変数である場合、変数のアドレスを計算し、スタックにプッシュする
+// それ以外の場合、エラーを報告する
 void gen_lval(Node *node) {
     if (node->kind != ND_LVAR) {
         error("左辺値ではありません");
